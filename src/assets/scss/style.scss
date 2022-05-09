@@ -1,7 +1,6 @@
 @import '~/node_modules/bootstrap/scss/bootstrap.scss';
-
 #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -16,4 +15,9 @@
           width: 130px;
           
       }
+      
   }
+
+  h3{
+    font-weight: 700;
+}
