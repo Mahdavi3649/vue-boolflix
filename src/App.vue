@@ -72,22 +72,25 @@ export default {
   data() {
     return {
       searchText: "",
-      movies: null,
       series: null,
+      movies: null,
     };
   },
   methods: {
     searchMovie() {
       let APImovies = axios.get(
-        "https://api.themoviedb.org/3/search/movie?api_key=7559f4c99fde3dbacdffc9766ef20e18&language=it-IT&page=1&include_adult=false&query=funny games"
+        `https://api.themoviedb.org/3/search/movie?api_key=7559f4c99fde3dbacdffc9766ef20e18&language=it-IT&page=1&include_adult=false&query=${this.searchText}`
       );
       let APIseries = axios.get(
-        "https://api.themoviedb.org/3/search/tv?api_key=7559f4c99fde3dbacdffc9766ef20e18&language=en-US&page=1&include_adult=false&query=black mirror"
+        `https://api.themoviedb.org/3/search/tv?api_key=7559f4c99fde3dbacdffc9766ef20e18&language=en-US&page=1&include_adult=false&query=${this.searchText}`
       );
+
       axios.all([APImovies, APIseries]).then(
         axios.spread((...responses) => {
-          this.movies = responses[0].data.results;
-          this.series = responses[1].data.results;
+          this.movies = [
+            ...responses[0].data.results,
+            ...responses[1].data.results,
+          ];
           this.searchText = "";
         })
       );
@@ -96,8 +99,10 @@ export default {
     flags(index) {
       if (this.movies[index].original_language === "en") {
         this.movies[index].original_language = "us";
-      } else if (this.movies[index].original_language === "de") {
-        this.movies[index].original_language = "de";
+      } else if (this.movies[index].original_language === "ko") {
+        this.movies[index].original_language = "kr";
+      } else if (this.movies[index].original_language === "da") {
+        this.movies[index].original_language = "dk";
       }
       return this.movies[index].original_language;
     },
