@@ -24,17 +24,21 @@
     </header>
 
     <main>
-      <ul>
-        <li v-for="(movie, index) in movies" :key="movie.id">
-          <h3>{{ movie.title }}</h3>
-          <p>{{ movie.original_title }}</p>
-          <img
-            :src="'https://flagcdn.com/w20/' + flags(index) + '.png'"
-            alt=""
-          />
-          <p>{{ movie.vote_average }}</p>
-        </li>
-      </ul>
+      <div class="container">
+        <div class="row">
+          <ul>
+            <li v-for="(movie, index) in movies" :key="movie.id">
+              <h3>{{ movie.title }}</h3>
+              <p>{{ movie.original_title }}</p>
+              <img
+                :src="'https://flagcdn.com/w20/' + flags(index) + '.png'"
+                alt=""
+              />
+              <p>{{ movie.vote_average }}</p>
+            </li>
+          </ul>
+        </div>
+      </div>
     </main>
   </div>
 </template>
