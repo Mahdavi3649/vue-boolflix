@@ -25,10 +25,13 @@
 
     <main>
       <ul>
-        <li v-for="movie in movies" :key="movie.id">
+        <li v-for="(movie, index) in movies" :key="movie.id">
           <h3>{{ movie.title }}</h3>
           <p>{{ movie.original_title }}</p>
-          <p>{{ movie.original_language }}</p>
+          <img
+            :src="'https://flagcdn.com/w20/' + flags(index) + '.png'"
+            alt=""
+          />
           <p>{{ movie.vote_average }}</p>
         </li>
       </ul>
@@ -47,15 +50,30 @@ export default {
       searchText: "",
       movies: null,
       API_URL:
-        "https://api.themoviedb.org/3/search/movie?api_key=7559f4c99fde3dbacdffc9766ef20e18&language=en-IT&page=1&include_adult=false&query=funny games",
+        "https://api.themoviedb.org/3/search/movie?api_key=7559f4c99fde3dbacdffc9766ef20e18&language=it-IT&page=1&include_adult=false&query=funny games",
     };
   },
   methods: {
     searchMovie() {
-      axios.get(this.API_URL).then((response) => {
-        console.log(response);
-        this.movies = response.data.results;
-      });
+      axios
+        .get(this.API_URL)
+        .then((response) => {
+          console.log(response);
+          this.movies = response.data.results;
+        })
+        .catch((error) => {
+          console.log(error);
+          //this.error = `OPS! ${error}`;
+        });
+    },
+
+    flags(index) {
+      if (this.movies[index].original_language[index] === "en") {
+        this.movies[index].original_language[index] = "us";
+      } else if (this.movies[index].original_language[index] === "de") {
+        this.movies[index].original_language[index] = "de";
+      }
+      return this.movies[index].original_language;
     },
   },
   mouted() {
