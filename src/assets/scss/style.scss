@@ -1,0 +1,19 @@
+@import '~/node_modules/bootstrap/scss/bootstrap.scss';
+
+#app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  header{
+      display: flex;
+      justify-content: space-between;
+      background-color: black;
+      padding: 15px;
+
+      img{
+          width: 130px;
+          
+      }
+  }
