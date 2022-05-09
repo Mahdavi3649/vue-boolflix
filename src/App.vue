@@ -28,6 +28,10 @@
         <div class="row">
           <ul>
             <li v-for="(movie, index) in movies" :key="movie.id">
+              <img
+                :src="'http://image.tmdb.org/t/p/w200/' + movie.poster_path"
+                alt=""
+              />
               <h3>{{ movie.title }}</h3>
               <p>{{ movie.original_title }}</p>
               <img
