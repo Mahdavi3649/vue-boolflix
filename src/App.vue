@@ -17,7 +17,6 @@
           class="btn btn-outline-danger d-flex align-items-center"
           type="submit"
         >
-          <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
           Search
         </button>
       </form>
@@ -30,7 +29,7 @@
             <div class="card-film">
               <div class="cover-film">
                 <h5 v-if="movie.poster_path === null">
-                  <strong>Titolo:</strong>{{ movie.title }}
+                  <strong class="fs-6">Titolo:</strong>{{ movie.title }}
                 </h5>
                 <img
                   v-else
@@ -40,9 +39,9 @@
               </div>
 
               <div class="description">
-                <p><strong class="gold">Titolo:</strong> {{ movie.title }}</p>
+                <p><strong class="fs-6">Titolo:</strong> {{ movie.title }}</p>
                 <p>
-                  <strong class="gold">Titolo Originale:</strong>
+                  <strong class="fs-6">Titolo Originale:</strong>
                   {{ movie.original_title }}
                 </p>
                 <img
@@ -50,10 +49,23 @@
                   alt=""
                 />
                 <p>
-                  <strong class="gold">Voto: </strong>{{ movie.vote_average }}
+                  <strong class="fs-6">Voto: </strong>
+
+                  <font-awesome-icon
+                    v-for="n in rating(index)"
+                    :key="n"
+                    icon="fa-solid fa-star"
+                    style="color: gold"
+                  />
+                  <font-awesome-icon
+                    v-for="number in Stars - rating(index)"
+                    :key="'r' + number"
+                    icon="fa-regular fa-star"
+                    style="color: gold"
+                  />
                 </p>
                 <p>
-                  <strong class="gold">Overview:</strong> {{ movie.overview }}
+                  <strong class="fs-6">Overview:</strong> {{ movie.overview }}
                 </p>
               </div>
             </div>
@@ -65,7 +77,7 @@
             <div class="card-film">
               <div class="cover-film">
                 <h5 v-if="serie.poster_path === null">
-                  <strong>Titolo:</strong>{{ serie.name }}
+                  <strong class="fs-6">Titolo:</strong>{{ serie.name }}
                 </h5>
                 <img
                   v-else
@@ -75,9 +87,9 @@
               </div>
 
               <div class="description">
-                <p><strong class="gold">Titolo:</strong> {{ serie.name }}</p>
+                <p><strong class="fs-6">Titolo:</strong> {{ serie.name }}</p>
                 <p>
-                  <strong class="gold">Titolo Originale:</strong>
+                  <strong class="fs-6">Titolo Originale:</strong>
                   {{ serie.original_name }}
                 </p>
                 <img
@@ -85,10 +97,23 @@
                   class="mb-13"
                 />
                 <p>
-                  <strong class="gold">Voto: </strong>{{ serie.vote_average }}
+                  <strong class="fs-6">Voto: </strong>
+
+                  <font-awesome-icon
+                    v-for="n in rating(index)"
+                    :key="n"
+                    icon="fa-solid fa-star"
+                    style="color: gold"
+                  />
+                  <font-awesome-icon
+                    v-for="number in Stars - rating(index)"
+                    :key="'r' + number"
+                    icon="fa-regular fa-star"
+                    style="color: gold"
+                  />
                 </p>
                 <p>
-                  <strong class="gold">Overview:</strong> {{ serie.overview }}
+                  <strong class="fs-6">Overview:</strong> {{ serie.overview }}
                 </p>
               </div>
             </div>
@@ -110,6 +135,7 @@ export default {
       searchText: "",
       series: null,
       movies: null,
+      Stars: 5,
     };
   },
   methods: {
@@ -141,6 +167,11 @@ export default {
         this.movies[index].original_language = "dk";
       }
       return this.movies[index].original_language;
+    },
+
+    //  function divided by total vote / 2
+    rating(index) {
+      return Math.ceil(this.movies[index].vote_average / 2);
     },
   },
   mouted() {
