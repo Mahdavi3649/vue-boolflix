@@ -13,6 +13,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 /* import specific icons */
 import { faUserSecret, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
+
 /* import font awesome icon component */
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 

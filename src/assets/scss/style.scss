@@ -9,15 +9,63 @@
       display: flex;
       justify-content: space-between;
       background-color: black;
-      padding: 15px;
+      height: 70px;
+      padding: 1rem;
 
       img{
-          width: 130px;
-          
+          width: 130px; 
       }
-      
   }
 
-  h3{
-    font-weight: 700;
+  
+  main {
+    min-height: calc(100vh - 70px);
+    background-color: gray;
+    .row{
+        padding-top: 3rem;
+        row-gap: 3rem;
+    }
+    
+    .card-film{
+        overflow-y: hidden;
+        width: 340px;
+        height: 460px;
+        border: 2px solid white;
+        background-color: black;
+        h5{
+            color: gold;
+            padding: 50px 25px;
+        }
+        .cover-film{
+          img{
+            height: 100%;
+            width: 100%;
+          }
+        }
+    }
+        
+    .description{
+        display: none;
+
+        .gold{
+            color: rgb(244, 221, 92);
+        }
+        .mb-13{
+            margin-bottom: 13px;
+        }
+    }
+     
+
+    .card-film:hover .cover-film{
+        display: none;
+    }
+    .card-film:hover .description{
+        display: block;
+        background-color: black;
+        color: white;
+        padding: 50px 25px;
+        font-size: 14px;
+    }
 }
+
+ 
