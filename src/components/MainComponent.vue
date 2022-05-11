@@ -2,7 +2,11 @@
   <main>
     <div class="container">
       <div class="row">
-        <div class="col-4" v-for="(movie, index) in movies" :key="movie.id">
+        <div
+          class="col-4"
+          v-for="(movie, index) in searchMovies"
+          :key="movie.id"
+        >
           <div class="card-film">
             <div class="cover-film">
               <h5 v-if="movie.poster_path === null">
@@ -144,6 +148,9 @@ main {
   .row {
     padding-top: 3rem;
     row-gap: 3rem;
+  }
+  .col-4 {
+    width: calc(100% / 12) * 4;
   }
 
   .card-film {

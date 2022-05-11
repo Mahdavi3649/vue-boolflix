@@ -36,17 +36,22 @@ export default {
         `https://api.themoviedb.org/3/search/tv?api_key=7559f4c99fde3dbacdffc9766ef20e18&language=en-US&page=1&include_adult=false&query=${this.searchText}`
       );
 
-      axios.all([APImovies, APIseries]).then(
-        axios.spread((...responses) => {
-          this.movies = [
-            ...responses[0].data.results,
-            ...responses[1].data.results,
-          ];
-          this.searchText = "";
-          console.log(this.movies);
-          state.movies = this.movies;
-        })
-      );
+      axios
+        .all([APImovies, APIseries])
+        .then(
+          axios.spread((...responses) => {
+            this.movies = [
+              ...responses[0].data.results,
+              ...responses[1].data.results,
+            ];
+            this.searchText = "";
+            console.log(this.movies);
+            state.movies = this.movies;
+          })
+        )
+        .catch((error) => {
+          this.error = `${error}`;
+        });
     },
   },
 };
