@@ -1,27 +1,6 @@
 <template>
   <div id="app">
-    <header>
-      <div class="d-flex">
-        <img src="@/assets/img/logo2.jpg" />
-      </div>
-
-      <form class="d-flex" @submit.prevent="searchMovie">
-        <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-          v-model="searchText"
-        />
-        <button
-          class="btn btn-outline-danger d-flex align-items-center"
-          type="submit"
-        >
-          Search
-        </button>
-      </form>
-    </header>
-
+    <HeaderComponent />
     <main>
       <div class="container">
         <div class="row">
@@ -44,6 +23,7 @@
                   <strong class="fs-6">Titolo Originale:</strong>
                   {{ movie.original_title }}
                 </p>
+                <strong class="fs-6">Lingua: </strong>
                 <img
                   :src="'https://flagcdn.com/w20/' + flags(index) + '.png'"
                   alt=""
@@ -92,9 +72,9 @@
                   <strong class="fs-6">Titolo Originale:</strong>
                   {{ serie.original_name }}
                 </p>
+                <strong class="fs-6 mb-13">Lingua: </strong>
                 <img
                   :src="'https://flagcdn.com/w20/' + flags(index) + '.png'"
-                  class="mb-13"
                 />
                 <p>
                   <strong class="fs-6">Voto: </strong>
@@ -125,39 +105,21 @@
 </template>
 
 <script>
-import axios from "axios";
+import HeaderComponent from "@/components/HeaderComponent.vue";
 export default {
   name: "App",
-  components: {},
+  components: {
+    HeaderComponent,
+  },
 
   data() {
     return {
-      searchText: "",
       series: null,
       movies: null,
       Stars: 5,
     };
   },
   methods: {
-    searchMovie() {
-      let APImovies = axios.get(
-        `https://api.themoviedb.org/3/search/movie?api_key=7559f4c99fde3dbacdffc9766ef20e18&language=it-IT&page=1&include_adult=false&query=${this.searchText}`
-      );
-      let APIseries = axios.get(
-        `https://api.themoviedb.org/3/search/tv?api_key=7559f4c99fde3dbacdffc9766ef20e18&language=en-US&page=1&include_adult=false&query=${this.searchText}`
-      );
-
-      axios.all([APImovies, APIseries]).then(
-        axios.spread((...responses) => {
-          this.movies = [
-            ...responses[0].data.results,
-            ...responses[1].data.results,
-          ];
-          this.searchText = "";
-        })
-      );
-    },
-
     flags(index) {
       if (this.movies[index].original_language === "en") {
         this.movies[index].original_language = "us";
@@ -174,7 +136,7 @@ export default {
       return Math.ceil(this.movies[index].vote_average / 2);
     },
   },
-  mouted() {
+  mounted() {
     this.searchMovie();
   },
 };
